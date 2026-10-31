@@ -1,29 +1,28 @@
 /* High Road Gallery & Studios: design tokens (map 1:1 to Figma Variables) */
 :root {
-  /* Color: surface */
-  --color-bg-base: #111111;
-  --color-bg-surface: #1C1C1E;
-  --color-bg-elevated: #2C2C2E;
-  --color-bg-overlay: rgba(17, 17, 17, 0.94);
+  /* Color: surface (Altaloma palette) */
+  --color-bg-base: #FFFFFF;
+  --color-bg-surface: #EEEDEB;
+  --color-bg-elevated: #DDCDC0;
+  --color-bg-overlay: rgba(255, 255, 255, 0.94);
 
   /* Color: text */
-  --color-text-primary: #FFFFFF;
-  --color-text-secondary: #B9B9C0;
-  --color-text-on-accent: #111111;
-  --color-secondary-hover: #3A3A3C;
-  --color-secondary-pressed: #48484A;
+  --color-text-primary: #000000;
+  --color-text-secondary: #4A483F;
+  --color-text-on-action: #FFFFFF;
 
-  /* Color: accent and states */
-  --color-accent: #E0B65A;
-  --color-accent-hover: #EBC774;
-  --color-accent-pressed: #CFA445;
-  --color-focus: #8CC8FF;
-  --color-line-gold: rgba(224, 182, 90, 0.10);
-  --color-line-soft: rgba(255, 255, 255, 0.08);
+  /* Color: actions and states */
+  --color-action: #000000;
+  --color-action-hover: #2B2A26;
+  --color-action-pressed: #4A483F;
+  --color-secondary-hover: #D0BDAD;
+  --color-secondary-pressed: #C2AC99;
+  --color-focus: #0B57D0;
+  --color-icon-muted: #747265;
 
   /* Typography: Squarespace-available Google Fonts */
-  --font-heading: "Cormorant Garamond", Georgia, "Times New Roman", serif;
-  --font-body: "Work Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-heading: "DM Serif Display", Georgia, "Times New Roman", serif;
+  --font-body: "DM Sans", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
 
   --fs-display: 40px;
   --lh-display: 48px;

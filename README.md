@@ -1,6 +1,6 @@
 # High Road Gallery & Studios: redesign proof of concept
 
-Static, framework-free PoC. Mobile first at 360px, dark mode, 8px grid, WCAG AA or better.
+Static, framework-free PoC. Mobile first at 360px, Altaloma-inspired light palette, 8px grid, WCAG AA or better.
 
 ## Deploy to GitHub Pages
 1. Create a repo and push the contents of this folder to the root of `main`.
@@ -17,6 +17,6 @@ Static, framework-free PoC. Mobile first at 360px, dark mode, 8px grid, WCAG AA 
 
 ## Notes
 - Logo and hero photo are hotlinked from the client's Squarespace CDN. Swap in a transparent SVG logo at `assets/img/` when available.
-- Fonts (Cormorant Garamond, Work Sans) are both in the Squarespace font library.
+- Fonts (DM Serif Display, DM Sans) are both in the Squarespace font library.
 - All page links point to the live site so the PoC can be tapped through.
 - After editing cached files, bump `CACHE` in `sw.js`.

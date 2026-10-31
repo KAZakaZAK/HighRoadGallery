@@ -1,38 +1,45 @@
 {
   "color": {
     "bg": {
-      "base": "#111111",
-      "surface": "#1C1C1E",
-      "elevated": "#2C2C2E"
+      "base": "#FFFFFF",
+      "surface": "#EEEDEB",
+      "elevated": "#DDCDC0",
+      "secondary-hover": "#D0BDAD",
+      "secondary-pressed": "#C2AC99"
     },
     "text": {
-      "primary": "#FFFFFF",
-      "secondary": "#B9B9C0",
-      "on-accent": "#111111"
+      "primary": "#000000",
+      "secondary": "#4A483F",
+      "on-action": "#FFFFFF"
     },
-    "accent": {
-      "default": "#E0B65A",
-      "hover": "#EBC774",
-      "pressed": "#CFA445"
+    "action": {
+      "default": "#000000",
+      "hover": "#2B2A26",
+      "pressed": "#4A483F"
     },
-    "focus": "#8CC8FF"
+    "focus": "#0B57D0",
+    "icon-muted": "#747265"
   },
   "space": {
-    "0.5": 4,
-    "1": 8,
-    "1.5": 12,
-    "2": 16,
-    "3": 24,
-    "4": 32,
-    "5": 40,
-    "6": 48,
-    "8": 64,
-    "10": 80,
-    "12": 96
+    "4": 4,
+    "8": 8,
+    "12": 12,
+    "16": 16,
+    "24": 24,
+    "32": 32,
+    "40": 40,
+    "48": 48,
+    "64": 64,
+    "80": 80,
+    "96": 96
   },
   "radius": {
     "md": 8,
     "pill": 999
+  },
+  "font": {
+    "heading": "DM Serif Display",
+    "body": "DM Sans"
   },
   "type": {
     "display": {

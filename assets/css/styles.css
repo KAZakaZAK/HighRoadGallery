@@ -24,27 +24,6 @@ body {
   overflow-x: hidden;
 }
 
-/* Golden ratio guide lines: subtle, decorative, behind content */
-body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(to right, transparent calc(38.2% - 0.5px), var(--color-line-gold) calc(38.2% - 0.5px), var(--color-line-gold) calc(38.2% + 0.5px), transparent calc(38.2% + 0.5px)),
-    linear-gradient(to right, transparent calc(61.8% - 0.5px), var(--color-line-gold) calc(61.8% - 0.5px), var(--color-line-gold) calc(61.8% + 0.5px), transparent calc(61.8% + 0.5px)),
-    linear-gradient(to bottom, transparent calc(61.8% - 0.5px), var(--color-line-gold) calc(61.8% - 0.5px), var(--color-line-gold) calc(61.8% + 0.5px), transparent calc(61.8% + 0.5px));
-}
-
-.site-header,
-main,
-.site-footer,
-.cta-bar {
-  position: relative;
-  z-index: 1;
-}
-
 img {
   display: block;
   max-width: 100%;
@@ -60,7 +39,7 @@ h2,
 h3 {
   margin: 0;
   font-family: var(--font-heading);
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 0;
 }
 
@@ -90,8 +69,8 @@ ul {
   display: inline-flex;
   align-items: center;
   padding: 0 var(--space-2);
-  background: var(--color-accent);
-  color: var(--color-text-on-accent);
+  background: var(--color-action);
+  color: var(--color-text-on-action);
   font-weight: 600;
   border-radius: var(--radius-md);
   text-decoration: none;
@@ -132,16 +111,16 @@ ul {
 }
 
 .btn--primary {
-  background: var(--color-accent);
-  color: var(--color-text-on-accent);
+  background: var(--color-action);
+  color: var(--color-text-on-action);
 }
 
 .btn--primary:hover {
-  background: var(--color-accent-hover);
+  background: var(--color-action-hover);
 }
 
 .btn--primary:active {
-  background: var(--color-accent-pressed);
+  background: var(--color-action-pressed);
 }
 
 .btn--secondary {
@@ -211,7 +190,7 @@ ul {
   font-family: var(--font-heading);
   font-size: 20px;
   line-height: 24px;
-  font-weight: 700;
+  font-weight: 400;
 }
 
 .brand__name span {
@@ -298,7 +277,7 @@ ul {
 .site-nav__group--primary .site-nav__link {
   font-family: var(--font-heading);
   font-size: 28px;
-  font-weight: 600;
+  font-weight: 400;
 }
 
 .site-nav__actions {
@@ -324,7 +303,7 @@ ul {
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--color-accent);
+  color: var(--color-text-primary);
 }
 
 .hero h1 {
@@ -378,7 +357,7 @@ ul {
 .visit__item .icon {
   flex: none;
   margin-top: var(--space-0-5);
-  color: var(--color-accent);
+  color: var(--color-text-primary);
 }
 
 .visit__title {
@@ -390,11 +369,13 @@ ul {
 }
 
 .visit__link {
+  text-decoration: underline;
+  text-underline-offset: 4px;
   display: inline-flex;
   align-items: center;
   min-height: var(--tap-min);
   font-weight: 600;
-  color: var(--color-accent);
+  color: var(--color-text-primary);
 }
 
 /* Sections */
@@ -446,7 +427,7 @@ ul {
   width: 48px;
   height: 48px;
   background: var(--color-bg-elevated);
-  color: var(--color-accent);
+  color: var(--color-text-primary);
   border-radius: var(--radius-md);
 }
 
@@ -460,6 +441,7 @@ ul {
 }
 
 .card__title {
+  font-family: var(--font-heading);
   font-size: var(--fs-h3);
   line-height: var(--lh-h3);
 }
@@ -538,7 +520,7 @@ ul {
   font-family: var(--font-heading);
   font-size: var(--fs-h3);
   line-height: var(--lh-h3);
-  font-weight: 600;
+  font-weight: 400;
   cursor: pointer;
   list-style: none;
   border-radius: var(--radius-md);
@@ -552,7 +534,7 @@ ul {
   content: "+";
   font-family: var(--font-body);
   font-size: 28px;
-  color: var(--color-accent);
+  color: var(--color-text-primary);
 }
 
 .disclosure[open] summary::after {
@@ -703,7 +685,7 @@ ul {
   }
 
   .hero__media {
-    aspect-ratio: 1 / 1.618;
+    aspect-ratio: 4 / 5;
   }
 
   .visit {
