@@ -1,0 +1,52 @@
+{
+  "color": {
+    "bg": {
+      "base": "#111111",
+      "surface": "#1C1C1E",
+      "elevated": "#2C2C2E"
+    },
+    "text": {
+      "primary": "#FFFFFF",
+      "secondary": "#B9B9C0",
+      "on-accent": "#111111"
+    },
+    "accent": {
+      "default": "#E0B65A",
+      "hover": "#EBC774",
+      "pressed": "#CFA445"
+    },
+    "focus": "#8CC8FF"
+  },
+  "space": {
+    "0.5": 4,
+    "1": 8,
+    "1.5": 12,
+    "2": 16,
+    "3": 24,
+    "4": 32,
+    "5": 40,
+    "6": 48,
+    "8": 64,
+    "10": 80,
+    "12": 96
+  },
+  "radius": {
+    "md": 8,
+    "pill": 999
+  },
+  "type": {
+    "display": {
+      "mobile": "40/48",
+      "tablet": "56/64",
+      "desktop": "72/80"
+    },
+    "h2": {
+      "mobile": "32/40",
+      "tablet": "40/48"
+    },
+    "h3": "24/32",
+    "lead": "18/32",
+    "body": "16/24",
+    "small": "14/24"
+  }
+}
