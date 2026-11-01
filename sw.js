@@ -1,7 +1,18 @@
-var CACHE = "hrg-poc-v2";
+var CACHE = "hrg-poc-v3";
 var CORE = [
   "./",
+  "about.html",
+  "apply.html",
+  "artists.html",
+  "classes.html",
+  "contact.html",
+  "events.html",
+  "gallery.html",
+  "impact.html",
   "index.html",
+  "partnerships.html",
+  "press.html",
+  "visit.html",
   "manifest.webmanifest",
   "assets/css/tokens.css",
   "assets/css/styles.css",
