@@ -899,29 +899,31 @@ body:has(.site-nav.is-open) .cta-bar { display: none; }
 .prose { max-width: 720px; }
 .prose strong { color: var(--color-text-primary); font-weight: 600; }
 
-/* Get Involved: mission and donate side by side */
+/* Get Involved top block: mission and donate */
 .gi-top .section { padding-block: var(--space-6); }
-@media (min-width: 1024px) {
-  .gi-top { display: grid; grid-template-columns: 1fr 1fr; }
-  .gi-top .section { padding-block: var(--space-10); }
-  .gi-top .section .container { width: 100%; max-width: none; margin: 0; }
-  .gi-top .section:first-child .container { padding: 0 var(--space-10) 0 var(--space-10); }
-  .gi-top .section:last-child .container { padding: 0 var(--space-10); }
-  .gi-top .amounts { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); }
-  .gi-top .prose { max-width: 480px; }
-}
-.gi-top .amount { background: transparent; border-color: var(--color-text-primary); border-width: 1px; }
-.gi-top .amount:last-child { background: var(--color-bg-elevated); }
-.gi-top .amount:hover { background: var(--color-secondary-hover); }
-.gi-top .amount[aria-pressed="true"] { background: var(--color-bg-base); border-width: 2px; }
-
-/* Get Involved top block: spacing from Figma */
 .gi-top .prose p { margin: 0 0 var(--space-3); }
 .gi-top .prose p:last-child { margin-bottom: 0; }
 .gi-top #donate .section__title { margin-bottom: var(--space-2); }
 .gi-top #donate .panel__body { margin-bottom: var(--space-3); }
 @media (min-width: 1024px) {
+  .gi-top {
+    display: grid;
+    grid-template-columns: minmax(0, 496fr) minmax(0, 560fr);
+    gap: var(--space-8);
+    align-items: start;
+    max-width: calc(var(--content-max) + var(--space-10) * 2);
+    margin: 0 auto;
+    padding: var(--space-10);
+  }
+  .gi-top .section { padding: 0; background: none; }
+  .gi-top .section .container { max-width: none; margin: 0; padding: 0; }
+  .gi-top #donate { padding: var(--space-4); background: var(--color-bg-surface); border-radius: var(--radius-md); }
+  .gi-top .prose { max-width: none; }
   .gi-top .prose p { margin-bottom: var(--space-2); }
-  .gi-top #donate .panel__body { margin-bottom: var(--space-4); }
-  .gi-top .amounts { margin: 0 0 var(--space-4); }
+  .gi-top #donate .panel__body { margin-bottom: var(--space-2); }
+  .gi-top .amounts { grid-template-columns: repeat(2, 1fr); gap: var(--space-2); margin: 0 0 var(--space-2); }
+  .gi-top .amount { background: transparent; border: 1px solid var(--color-text-primary); }
+  .gi-top .amount:hover { background: var(--color-secondary-hover); }
+  .gi-top .amount[aria-pressed="true"] { background: var(--color-bg-base); border-width: 2px; }
 }
+@media (min-width: 1024px) { .gi-top .amounts + p { margin-top: 0; } }
