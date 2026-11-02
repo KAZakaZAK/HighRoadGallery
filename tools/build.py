@@ -10,7 +10,7 @@ HERO = "https://images.squarespace-cdn.com/content/v1/60a6fc39a488335a66e15a29/1
 MAPS = "https://www.google.com/maps/search/?api=1&query=12+E+Stafford+Worthington+OH+43085"
 
 NAV = [("events", "Events"), ("gallery", "Gallery"), ("artists", "Artists"),
-       ("classes", "Classes"), ("partnerships", "Partnerships"), ("visit", "Visit")]
+       ("classes", "Classes"), ("getinvolved", "Get Involved"), ("visit", "Visit")]
 MORE = [("about", "About"), ("impact", "Impact"), ("press", "Press and praise")]
 
 ARROW = '<svg class="icon card__arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>'
@@ -58,9 +58,14 @@ def form(fid, title, fields, submit, note=""):
             '<p class="form__status" role="status" aria-live="polite" hidden></p></form>'
             % (fid, title, "".join(fields), ('<p class="form__note">%s</p>' % note) if note else "", submit))
 
-def head(eyebrow, title, intro=""):
-    return ('<section class="page-head"><div class="container"><p class="eyebrow">%s</p><h1>%s</h1>%s</div></section>'
-            % (eyebrow, title, ('<p class="page-head__lead">%s</p>' % intro) if intro else ""))
+def head(eyebrow, title, intro="", cta=None):
+    btn = ('<p class="page-head__cta"><a class="btn btn--primary" href="%s">%s</a></p>' % cta) if cta else ""
+    return ('<section class="page-head"><div class="container"><p class="eyebrow">%s</p><h1>%s</h1>%s%s</div></section>'
+            % (eyebrow, title, ('<p class="page-head__lead">%s</p>' % intro) if intro else "", btn))
+
+def split_section(title, left, right, tone="", sid=""):
+    return ('<section class="section %s"%s><div class="container split"><div class="split__copy"><h2 class="section__title">%s</h2>%s</div>%s</div></section>'
+            % (tone, (' id="%s"' % sid) if sid else "", title, left, right))
 
 def section(title, body, tone="", sid=""):
     return ('<section class="section %s"%s><div class="container"><h2 class="section__title">%s</h2>%s</div></section>'
@@ -73,7 +78,12 @@ def chrome(slug, title, desc, body):
     inline = "".join(link(s, t) for s, t in NAV)
     drawer = "".join(link(s, t) for s, t in NAV)
     more = "".join(link(s, t) for s, t in MORE)
-    foot = "".join('<li>%s</li>' % link(s, t, "site-footer__link") for s, t in NAV + MORE + [("contact", "Contact"), ("apply", "Apply to exhibit")])
+    def col(cid, heading, items):
+        lis = "".join('<li>%s</li>' % link(s, t, "site-footer__link") for s, t in items)
+        return '<nav class="site-footer__col" aria-labelledby="%s"><p class="site-footer__title" id="%s">%s</p><ul>%s</ul></nav>' % (cid, cid, heading, lis)
+    cols = (col("f-explore", "Explore", [("gallery", "Gallery"), ("artists", "Artists"), ("events", "Events")])
+            + col("f-involved", "Get involved", [("classes", "Classes"), ("getinvolved", "Get Involved")])
+            + col("f-visit", "Plan your visit", [("visit", "Visit"), ("about", "About")]))
     home = "./" if slug == "index" else "index.html"
     return """<!DOCTYPE html>
 <html lang="en">
@@ -114,7 +124,7 @@ def chrome(slug, title, desc, body):
     <div class="site-nav__group"><p class="site-nav__label">More</p>%(more)s</div>
     <div class="site-nav__actions">
       <a class="btn btn--primary" href="contact.html">Contact</a>
-      <a class="btn btn--secondary" href="apply.html">Apply to Exhibit</a>
+      <a class="btn btn--secondary" href="gallery.html#apply">Apply to Exhibit</a>
     </div>
   </nav>
   <main id="main">
@@ -123,25 +133,25 @@ def chrome(slug, title, desc, body):
   <footer class="site-footer">
     <div class="container">
       <div class="site-footer__grid">
-        <div>
+        <div class="site-footer__brand">
           <p class="site-footer__title">High Road Gallery &amp; Studios</p>
           <address>12 E Stafford<br>Worthington, Ohio 43085<br>Fridays and Saturdays, 12 to 4</address>
+          <ul class="social">
+            <li><a class="social__link" href="https://instagram.com/highroadgallery" aria-label="Instagram"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><path d="M17.5 6.5h.01"/></svg></a></li>
+            <li><a class="social__link" href="https://facebook.com/highroadgallery" aria-label="Facebook"><svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg></a></li>
+          </ul>
         </div>
-        <div><p class="site-footer__title">Explore</p><ul>%(foot)s</ul></div>
-        <div><p class="site-footer__title">Follow</p><ul>
-          <li><a class="site-footer__link" href="https://instagram.com/highroadgallery">Instagram</a></li>
-          <li><a class="site-footer__link" href="https://facebook.com/highroadgallery">Facebook</a></li>
-        </ul></div>
+        %(cols)s
       </div>
       <p class="site-footer__legal">&copy; <span id="year">2026</span> High Road Gallery &amp; Studios. A 501(c)3 non-profit artist collective. Design proof of concept.</p>
     </div>
   </footer>
-  <div class="cta-bar" role="region" aria-label="Quick action"><a class="btn btn--primary" href="apply.html">Apply to Exhibit</a></div>
+  <div class="cta-bar" role="region" aria-label="Quick action"><a class="btn btn--primary" href="gallery.html#apply">Apply to Exhibit</a></div>
   <script src="assets/js/main.js" defer></script>
 </body>
 </html>
 """ % dict(title=title, desc=html.escape(desc), home=home, logo=LOGO, inline=inline, drawer=drawer, more=more,
-           foot=foot, body=body, ccur=' aria-current="page"' if slug == "contact" else "")
+           cols=cols, body=body, ccur=' aria-current="page"' if slug == "contact" else "")
 
 PAGES = {}
 
@@ -168,16 +178,16 @@ PAGES["index"] = ("Home", "A non-profit artist collective in a historic 1818 hom
     </div></div></section>
     %s
     <section class="section" aria-labelledby="support-title"><div class="container"><div class="panel">
-      <div><p class="eyebrow">Partnerships</p><h2 class="section__title" id="support-title">This place matters.</h2>
+      <div><p class="eyebrow">Get involved</p><h2 class="section__title" id="support-title">This place matters.</h2>
       <p class="panel__body">Across the country, community art spaces are quietly disappearing. This one is still here, serving artists, neighbors and the next generation.</p>
       <p class="panel__body">Your tax-deductible gift helps preserve a historic building, keep studio spaces affordable and keep exhibitions open. We are an artist-run 501(c)3.</p></div>
-      <div class="panel__actions"><a class="btn btn--primary" href="partnerships.html">Partner with us</a><a class="btn btn--secondary" href="partnerships.html#donate">Donate</a></div>
+      <div class="panel__actions"><a class="btn btn--primary" href="getinvolved.html">Get involved</a><a class="btn btn--secondary" href="getinvolved.html#donate">Donate</a></div>
     </div>
     <p class="thanks"><strong>Thank you</strong> to the Columbus Foundation for the grants and to Tilton Automotive for the donation. We are proud to be part of the America 250 celebration.</p></div></section>
     <section class="section" aria-labelledby="exhibit-title"><div class="container"><div class="panel">
       <div><p class="eyebrow">For artists</p><h2 class="section__title" id="exhibit-title">Show your work at High Road.</h2>
       <p class="panel__body">We keep studio space affordable and exhibiting accessible to emerging and established artists alike.</p></div>
-      <div class="panel__actions"><a class="btn btn--primary" href="apply.html">Apply to Exhibit</a></div>
+      <div class="panel__actions"><a class="btn btn--primary" href="gallery.html#apply">Apply to Exhibit</a></div>
     </div></div></section>
     <section class="section" aria-label="Mission and vision"><div class="container"><details class="disclosure"><summary>Our mission and vision</summary><div class="disclosure__body">
       <p>High Road Gallery is a community art space where artists create, exhibit and connect. In our 1818 historic home, we support both emerging and established artists, offer a welcoming place for community connection and steward a meaningful piece of Worthington's history.</p>
@@ -198,43 +208,47 @@ PAGES["events"] = ("Events", "Upcoming events first. Past events live in the arc
     + section("Past events", '<ul class="cards cards--wide">%s%s</ul>' % (static_card("2025", "Archive of past events."), static_card("2024", "Archive of past events."))))
 
 # GALLERY
+gal_steps = '<ol class="steps"><li><strong>Review the requirements.</strong> What we show and how it works.</li><li><strong>Submit the application.</strong> Use the form below.</li><li><strong>We reply by email.</strong> Timeline to be confirmed.</li></ol>'
 PAGES["gallery"] = ("Gallery", "Current, upcoming and past exhibits at High Road Gallery.",
-    head("Gallery", "Gallery", "Current, upcoming and past exhibits.")
-    + section("On view now", '<div class="split">%s<div><h3>Exhibit title</h3><p>Dates and artists. Placeholder copy.</p></div></div>' % ph("Exhibit image"), "section--tint")
-    + section("Coming soon", '<ul class="cards cards--wide">%s</ul>' % static_card("Exhibit title", "Opening date and artists.", "img"))
-    + section("Past exhibits", '<ul class="cards cards--wide">%s</ul>' % "".join(static_card("Exhibit title", "Dates.", "img") for _ in range(3)), "section--tint"))
+    head("Gallery", "Gallery", "Current, upcoming and past exhibits.", ("#apply", "Apply to exhibit"))
+    + split_section("On view now", '<h3>Exhibit title</h3><p>Dates and artists. Placeholder copy.</p>', ph("Exhibit image"), "section--tint")
+    + section("Coming soon", '<ul class="cards cards--2">%s</ul>' % static_card("Exhibit title", "Opening date and artists.", "img"))
+    + section("Past exhibits", '<ul class="cards cards--wide">%s</ul>' % "".join(static_card("Exhibit title", "Dates.", "img") for _ in range(3)), "section--tint")
+    + '<section class="section" id="apply"><div class="container split split--top"><div class="split__copy"><h2 class="section__title">Apply to exhibit</h2>%s</div>%s</div></section>' % (
+        gal_steps, form("form-apply", "Exhibit application", [field("a-name", "Name"), field("a-email", "Email", "email"), field("a-link", "Link to your work", "url"), field("a-msg", "About your work", "textarea")], "Submit application")))
 
 # ARTISTS
 art = "".join('<li class="artist">%s<h3>Artist name</h3><p>Medium. <a href="#artists-title">View profile</a></p></li>' % ph("Artist photo", "4-3") for _ in range(4))
 PAGES["artists"] = ("Artists", "Meet the resident artists working in the studios at High Road Gallery.",
-    head("Artists", "Artists", "Artists are the engine of High Road. Intro copy comes from the deck.")
+    head("Artists", "Artists", "Artists are the engine of High Road. Intro copy comes from the deck.", ("#studio-space", "Apply for studio space"))
     + section("Resident artists", '<ul class="artist-grid">%s</ul>' % art, "section--tint", "artists-title")
-    + section("Past residents", "<p>List of past residents. Placeholder.</p>"))
+    + section("Past residents", "<p>List of past residents. Placeholder.</p>")
+    + '<section class="section section--tint" id="studio-space"><div class="container split split--top"><div class="split__copy"><h2 class="section__title">Studio space</h2><p>No studios are open right now. Join the interest list and we will email you when one is.</p></div>%s</div></section>' % (
+        form("form-studio", "Studio space interest", [field("s-name", "Name"), field("s-email", "Email", "email"), field("s-medium", "Medium and needs", "textarea")], "Join the list")))
 
 # CLASSES
-opts = "".join('<option value="%s">%s</option>' % (v, v) for v in ["Private lessons", "Art and tech lessons", "Collage and Conversation (paused)"])
 cls = ""
 for t, d, fid in [("Private lessons", "One on one with a resident artist.", "private"), ("Art and tech lessons", "Digital and traditional work.", "tech"), ("Collage and Conversation", "Paused for now.", "collage")]:
-    cls += ('<li class="class"><div class="card card--static"><span class="card__icon">%s</span><span><span class="card__title">%s</span><span class="card__text">%s</span></span><span></span></div>'
-            '<a class="btn btn--secondary" href="#inquire-%s">Inquire</a></li>' % (icon("book"), t, d, fid))
+    cls += ('<li class="class"><div class="card card--static"><span class="card__icon">%s</span><span><span class="card__title">%s</span><span class="card__text">%s</span></span><span></span></div>%s</li>'
+            % (icon("book"), t, d, ('<a class="btn btn--secondary" href="#lessons-%s">Apply for lessons</a>' % fid) if fid != "collage" else ""))
 forms = ""
 for t, fid in [("Private lessons", "private"), ("Art and tech lessons", "tech")]:
-    forms += '<div id="inquire-%s">%s</div>' % (fid, form("form-" + fid, "Inquire: " + t,
+    forms += '<div id="lessons-%s">%s</div>' % (fid, form("form-" + fid, "Apply for lessons: " + t,
         [field(fid + "-name", "Name"), field(fid + "-email", "Email", "email"), field(fid + "-msg", "Message", "textarea")],
-        "Send inquiry", "Goes to the instructor for this class. One form per class."))
-PAGES["classes"] = ("Classes", "Classes with resident artists. Send an inquiry and the instructor replies.",
-    head("Classes", "Classes", "Learn from resident artists. Send an inquiry and the instructor replies.")
+        "Send application", "Goes to the instructor for this class. One form per class."))
+PAGES["classes"] = ("Classes", "Classes with resident artists. Apply for lessons and the instructor replies.",
+    head("Classes", "Classes", "Learn from resident artists. Apply for lessons and the instructor replies.", ("#lessons", "Apply for lessons"))
     + section("Offerings", '<ul class="class-list">%s</ul>' % cls, "section--tint")
-    + '<section class="section"><div class="container forms-grid">%s</div></section>' % forms)
+    + '<section class="section" id="lessons"><div class="container forms-grid">%s</div></section>' % forms)
 
-# PARTNERSHIPS
+# GET INVOLVED
 amounts = "".join('<button class="amount" type="button" aria-pressed="false" data-amount="%s">%s</button>' % (a, a) for a in ["$25", "$50", "$100", "Other"])
-PAGES["partnerships"] = ("Partnerships", "Donate, partner, sponsor and outreach at High Road Gallery.",
-    head("Partnerships", "Partnerships", "Donate, partner, sponsor and outreach in one place.")
+PAGES["getinvolved"] = ("Get Involved", "Donate, partner, sponsor and outreach at High Road Gallery.",
+    head("Get Involved", "Get involved", "Donate, partner, sponsor and outreach in one place.")
     + section("Donate", '<p class="panel__body">Gifts are tax-deductible. We are an artist-run 501(c)3.</p><div class="amounts" role="group" aria-label="Donation amount">%s</div><p><button class="btn btn--primary" type="button" data-donate>Donate</button></p><p class="form__status" role="status" aria-live="polite" data-donate-status hidden></p><p class="panel__note">Prefer to mail a check? Make it out to High Road Gallery and send it to 12 East Stafford, Worthington, Ohio 43085.</p>' % amounts, "section--tint", "donate")
-    + section("Why give", '<ul class="cards cards--wide">%s%s</ul>' % (static_card("Building needs", "What the 1818 building requires.", "heart"), static_card("What gifts fund", "Preserve, support and give access.", "heart")))
-    + section("Partner and sponsor", '<ul class="cards cards--wide">%s</ul>' % "".join(static_card(t, "One line description. Placeholder.", "people") for t in ["Sponsorships", "Grants", "Multi-year support", "Building gifts"]), "section--tint")
-    + section("Outreach", '<div class="split"><div><p>Schools, public art and inclusive programs.</p></div>%s</div>' % ph("Outreach image"))
+    + section("Why give", '<ul class="cards cards--2">%s%s</ul>' % (static_card("Building needs", "What the 1818 building requires.", "heart"), static_card("What gifts fund", "Preserve, support and give access.", "heart")))
+    + section("Partner and sponsor", '<ul class="cards cards--2">%s</ul>' % "".join(static_card(t, "One line description. Placeholder.", "people") for t in ["Sponsorships", "Grants", "Multi-year support", "Building gifts"]), "section--tint")
+    + split_section("Outreach", "<p>Schools, public art and inclusive programs.</p>", ph("Outreach image"))
     + section("Our friends", '<p>Thank you to the Columbus Foundation for the grants and to Tilton Automotive for the donation.</p><p><a class="btn btn--secondary" href="impact.html">See our impact</a></p>', "section--tint"))
 
 # VISIT
@@ -242,7 +256,7 @@ vi = lambda ic, t, d: '<div class="visit__item">%s<div><p class="visit__title">%
 PAGES["visit"] = ("Visit", "Hours, address and parking for High Road Gallery in Worthington, Ohio.",
     head("Visit", "Visit", "Plan your trip: when we are open and how to find us.")
     + section("Hours", '<div class="visit-grid">%s%s%s</div>' % (vi("clock", "Fridays and Saturdays", "12 to 4"), vi("clock", "Summer hours", "10 to 4, May to September. Check before you go."), vi("clock", "January closure", "Closed for the month. Check before you go.")), "section--tint")
-    + section("Find us", '<div class="split"><div><address>12 E Stafford<br>Worthington, Ohio 43085</address><p><a class="btn btn--secondary" href="%s">Get directions</a></p></div>%s</div>' % (MAPS, ph("Map")))
+    + split_section("Find us", '<address>12 E Stafford<br>Worthington, Ohio 43085</address><p><a class="btn btn--secondary" href="%s">Get directions</a></p>' % MAPS, ph("Map"))
     + section("Parking and access", "<p>Parking and accessibility details. Placeholder.</p>", "section--tint")
     + section("Groups and events", '<p>Planning a group visit or private event?</p><p><a class="btn btn--secondary" href="contact.html">Contact us</a></p>'))
 
@@ -253,14 +267,6 @@ PAGES["contact"] = ("Contact", "Contact High Road Gallery with questions, group 
     + '<section class="section section--tint"><div class="container split split--top">%s<div><h2 class="section__title">Reach us</h2><div class="visit-grid visit-grid--stack">%s%s%s</div></div></div></section>' % (
         form("form-contact", "Send a message", [field("c-topic", "Topic", "select", True, topics), field("c-name", "Name"), field("c-email", "Email", "email"), field("c-msg", "Message", "textarea")], "Send message"),
         vi("mail", "Email", "Placeholder address"), vi("people", "Social", '<a href="https://instagram.com/highroadgallery">Instagram</a>, <a href="https://facebook.com/highroadgallery">Facebook</a>'), vi("pin", "Mailing address", "12 E Stafford, Worthington, OH 43085")))
-
-# APPLY
-PAGES["apply"] = ("Apply to exhibit", "Apply for a guest exhibit or join the studio space interest list at High Road Gallery.",
-    head("Apply to exhibit", "Apply", "One page, two tracks: guest exhibit or studio space.")
-    + section("Guest exhibit", '<ol class="steps"><li><strong>Review the requirements.</strong> What we show and how it works.</li><li><strong>Submit the application.</strong> Use the form below.</li><li><strong>We reply by email.</strong> Timeline to be confirmed.</li></ol>', "section--tint")
-    + '<section class="section"><div class="container forms-grid">%s%s</div></section>' % (
-        form("form-apply", "Exhibit application", [field("a-name", "Name"), field("a-email", "Email", "email"), field("a-link", "Link to your work", "url"), field("a-msg", "About your work", "textarea")], "Submit application"),
-        form("form-studio", "Studio space interest", [field("s-name", "Name"), field("s-email", "Email", "email"), field("s-medium", "Medium")], "Join the list", "No studios are open right now. We will email you when one is.")))
 
 # ABOUT
 tl = ""
@@ -276,6 +282,12 @@ PAGES["about"] = ("About", "The story of High Road Gallery & Studios, from 1818 
 
 PAGES["impact"] = ("Impact", "Results and reach since 2001.", head("About", "Impact", "Results and reach since 2001.") + section("By the numbers", "<p>Stats from the 2025 review. Placeholder.</p>", "section--tint"))
 PAGES["press"] = ("Press and praise", "Press coverage and testimonials, written as text cards.", head("About", "Press and praise", "Text cards to be written. No screenshots.") + section("Coverage", "<p>Placeholder.</p>", "section--tint"))
+
+for stale in ("apply.html", "partnerships.html"):
+    try:
+        os.remove(os.path.join(ROOT, stale))
+    except FileNotFoundError:
+        pass
 
 for slug, (title, desc, body) in PAGES.items():
     with open(os.path.join(ROOT, slug + ".html"), "w", encoding="utf-8") as f:
