@@ -188,11 +188,7 @@ PAGES["index"] = ("Home", "A non-profit artist collective in a historic 1818 hom
       <div><p class="eyebrow">For artists</p><h2 class="section__title" id="exhibit-title">Show your work at High Road.</h2>
       <p class="panel__body">We keep studio space affordable and exhibiting accessible to emerging and established artists alike.</p></div>
       <div class="panel__actions"><a class="btn btn--primary" href="gallery.html#apply">Apply to Exhibit</a></div>
-    </div></div></section>
-    <section class="section" aria-label="Mission and vision"><div class="container"><details class="disclosure"><summary>Our mission and vision</summary><div class="disclosure__body">
-      <p>High Road Gallery is a community art space where artists create, exhibit and connect. In our 1818 historic home, we support both emerging and established artists, offer a welcoming place for community connection and steward a meaningful piece of Worthington's history.</p>
-      <p><strong>Vision.</strong> We envision our historic 1818 home continuing to serve as a place where artists and community members gather to nurture beauty and belonging.</p>
-    </div></details></div></section>""" % (
+    </div></div></section>""" % (
     HERO, icon("clock"), icon("pin"), MAPS,
     section("Explore", '<ul class="cards">%s</ul>' % "".join([
         card("events.html", "Events", "Openings, shows and community days.", "cal"),
@@ -271,6 +267,7 @@ PAGES["classes"] = ("Classes", "Classes with resident artists. Apply for lessons
 amounts = "".join('<button class="amount" type="button" aria-pressed="false" data-amount="%s">%s</button>' % (a, a) for a in ["$25", "$50", "$100", "Other"])
 PAGES["getinvolved"] = ("Get Involved", "Donate, partner, sponsor and outreach at High Road Gallery.",
     head("Get Involved", "Get involved", "Donate, partner, sponsor and outreach in one place.")
+    + section("Our mission", '<div class="prose"><p>High Road Gallery is a community art space where artists create, exhibit and connect. In our 1818 historic home, we support both emerging and established artists, offer a welcoming place for community connection and steward a meaningful piece of Worthington\'s history.</p><p><strong>Vision.</strong> We envision our historic 1818 home continuing to serve as a place where artists and community members gather to nurture beauty and belonging.</p><p>Your gift keeps this place open to artists and the community.</p></div>')
     + section("Donate", '<p class="panel__body">Gifts are tax-deductible. We are an artist-run 501(c)3.</p><div class="amounts" role="group" aria-label="Donation amount">%s</div><p><button class="btn btn--primary" type="button" data-donate>Donate</button></p><p class="form__status" role="status" aria-live="polite" data-donate-status hidden></p><p class="panel__note">Prefer to mail a check? Make it out to High Road Gallery and send it to 12 East Stafford, Worthington, Ohio 43085.</p>' % amounts, "section--tint", "donate")
     + section("Why give", '<ul class="cards cards--2">%s%s</ul>' % (static_card("Building needs", "What the 1818 building requires.", "heart"), static_card("What gifts fund", "Preserve, support and give access.", "heart")))
     + section("Partner and sponsor", '<ul class="cards cards--2">%s</ul>' % "".join(static_card(t, "One line description. Placeholder.", "people") for t in ["Sponsorships", "Grants", "Multi-year support", "Building gifts"]), "section--tint")

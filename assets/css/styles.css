@@ -896,3 +896,5 @@ body:has(.site-nav.is-open) .cta-bar { display: none; }
 @media (min-width: 768px) { .past-cards .card { grid-template-columns: 48px 1fr 24px; grid-template-rows: none; align-items: center; min-height: 96px; padding: var(--space-2); } }
 .past-cards .card--static { cursor: default; }
 .section .thanks { margin: var(--space-4) 0 0; }
+.prose { max-width: 720px; }
+.prose strong { color: var(--color-text-primary); font-weight: 600; }
