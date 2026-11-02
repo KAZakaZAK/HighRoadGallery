@@ -914,3 +914,14 @@ body:has(.site-nav.is-open) .cta-bar { display: none; }
 .gi-top .amount:last-child { background: var(--color-bg-elevated); }
 .gi-top .amount:hover { background: var(--color-secondary-hover); }
 .gi-top .amount[aria-pressed="true"] { background: var(--color-bg-base); border-width: 2px; }
+
+/* Get Involved top block: spacing from Figma */
+.gi-top .prose p { margin: 0 0 var(--space-3); }
+.gi-top .prose p:last-child { margin-bottom: 0; }
+.gi-top #donate .section__title { margin-bottom: var(--space-2); }
+.gi-top #donate .panel__body { margin-bottom: var(--space-3); }
+@media (min-width: 1024px) {
+  .gi-top .prose p { margin-bottom: var(--space-2); }
+  .gi-top #donate .panel__body { margin-bottom: var(--space-4); }
+  .gi-top .amounts { margin: 0 0 var(--space-4); }
+}
