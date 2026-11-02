@@ -895,3 +895,4 @@ body:has(.site-nav.is-open) .cta-bar { display: none; }
 @media (min-width: 768px) and (max-width: 1023px) { .ev-cards { grid-template-columns: repeat(2, 1fr); } }
 @media (min-width: 768px) { .past-cards .card { grid-template-columns: 48px 1fr 24px; grid-template-rows: none; align-items: center; min-height: 96px; padding: var(--space-2); } }
 .past-cards .card--static { cursor: default; }
+.section .thanks { margin: var(--space-4) 0 0; }
