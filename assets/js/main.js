@@ -104,6 +104,15 @@
     });
   }
 
+  /* View more / View archive: reveals hidden items. */
+  document.querySelectorAll("[data-more]").forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var id = btn.getAttribute("data-more");
+      document.querySelectorAll('[data-more-item="' + id + '"]').forEach(function (el) { el.hidden = false; });
+      btn.hidden = true;
+    });
+  });
+
   /* Add to calendar: downloads a placeholder .ics. */
   var ics = document.querySelector("[data-ics]");
   if (ics) {

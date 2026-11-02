@@ -201,11 +201,37 @@ PAGES["index"] = ("Home", "A non-profit artist collective in a historic 1818 hom
         card("classes.html", "Classes", "Learn something new, at any level.", "book")]), sid="explore-title")))
 
 # EVENTS
-ev = "".join(static_card("Event title %d" % i, "Date, time and a short description. Placeholder.", "cal") for i in (1, 2, 3))
+vi = lambda ic, t, d: '<div class="visit__item">%s<div><p class="visit__title">%s</p><p class="visit__text">%s</p></div></div>' % (icon(ic), t, d)
+def ev_card(title, text, href="event.html", extra=""):
+    return ('<li class="ev-card"%s><a class="ev-card__link" href="%s">%s<span class="ev-card__body"><span class="ev-card__text">'
+            '<span class="card__title">%s</span><span class="card__text">%s</span></span>%s</span></a></li>'
+            % (extra, href, ph("Event image"), title, text, ARROW))
+
+def ev_list(items, more_id):
+    shown = "".join(ev_card(t, d) for t, d in items[:3])
+    hidden = "".join(ev_card(t, d, extra=" hidden data-more-item=\"%s\"" % more_id) for t, d in items[3:])
+    return '<ul class="ev-cards">%s%s</ul>' % (shown, hidden)
+
+up = [("Event title %d" % i, "Date, time and a short description. Placeholder.") for i in range(1, 6)]
+past = [("2025 events", "Archive of past events."), ("2024 events", "Archive of past events."), ("2023 events", "Archive of past events."), ("2022 events", "Archive of past events.")]
 PAGES["events"] = ("Events", "Upcoming events first. Past events live in the archive.",
     head("Events", "Events", "Upcoming events first. Past events are in the archive.")
-    + section("Upcoming", '<ul class="cards cards--wide">%s</ul><p><button class="btn btn--secondary" type="button" data-ics>Add first event to calendar</button></p>' % ev, "section--tint")
-    + section("Past events", '<ul class="cards cards--wide">%s%s</ul>' % (static_card("2025", "Archive of past events."), static_card("2024", "Archive of past events."))))
+    + section("Upcoming", ev_list(up, "up") + '<p><button class="btn btn--outline" type="button" data-more="up" aria-expanded="false">View more</button></p>', "section--tint")
+    + section("Past events", '<ul class="cards cards--wide">%s</ul><p><button class="btn btn--outline" type="button" data-more="past" aria-expanded="false">View archive</button></p>' % "".join(
+        static_card(t, d) if i < 2 else static_card(t, d).replace('<li class="card', '<li hidden data-more-item="past" class="card', 1) for i, (t, d) in enumerate(past))))
+
+# EVENT SPOTLIGHT
+PAGES["event"] = ("Event spotlight", "Details for a High Road Gallery event: date, place and how to add it to your calendar.",
+    head("Events", "Event title", "One short line about the event. Placeholder.")
+    + '<section class="section"><div class="container">%s</div></section>' % ph("Event hero image", "16-10")
+    + section("Details", '<div class="visit-grid">%s%s%s%s</div>' % (
+        vi("cal", "Date", "Friday, January 9"), vi("clock", "Time", "5 to 9 pm"),
+        vi("pin", "Location", "12 E Stafford, Worthington, OH"), vi("heart", "Cost", "Free")), "section--tint")
+    + section("About this event", "<p>Placeholder copy. Describe the event, the artists and what to expect.</p>"
+        '<p class="btn-row"><button class="btn btn--primary" type="button" data-ics>Add to calendar</button> '
+        '<a class="btn btn--secondary" href="visit.html">Get directions</a></p>')
+    + section("More events", ev_list([("Event title 2", "Date, time and a short description. Placeholder."), ("Event title 3", "Date, time and a short description. Placeholder.")], "x")
+        + '<p><a class="btn btn--outline" href="events.html">View all events</a></p>', "section--tint"))
 
 # GALLERY
 gal_steps = '<ol class="steps"><li><strong>Review the requirements.</strong> What we show and how it works.</li><li><strong>Submit the application.</strong> Use the form below.</li><li><strong>We reply by email.</strong> Timeline to be confirmed.</li></ol>'
@@ -252,7 +278,6 @@ PAGES["getinvolved"] = ("Get Involved", "Donate, partner, sponsor and outreach a
     + section("Our friends", '<p>Thank you to the Columbus Foundation for the grants and to Tilton Automotive for the donation.</p><p><a class="btn btn--secondary" href="impact.html">See our impact</a></p>', "section--tint"))
 
 # VISIT
-vi = lambda ic, t, d: '<div class="visit__item">%s<div><p class="visit__title">%s</p><p class="visit__text">%s</p></div></div>' % (icon(ic), t, d)
 PAGES["visit"] = ("Visit", "Hours, address and parking for High Road Gallery in Worthington, Ohio.",
     head("Visit", "Visit", "Plan your trip: when we are open and how to find us.")
     + section("Hours", '<div class="visit-grid">%s%s%s</div>' % (vi("clock", "Fridays and Saturdays", "12 to 4"), vi("clock", "Summer hours", "10 to 4, May to September. Check before you go."), vi("clock", "January closure", "Closed for the month. Check before you go.")), "section--tint")
