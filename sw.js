@@ -1,4 +1,4 @@
-var CACHE = "hrg-poc-v5";
+var CACHE = "hrg-poc-v6";
 var CORE = [
   "./",
   "about.html",

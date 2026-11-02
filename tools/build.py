@@ -212,13 +212,13 @@ def ev_list(items, more_id):
     hidden = "".join(ev_card(t, d, extra=" hidden data-more-item=\"%s\"" % more_id) for t, d in items[3:])
     return '<ul class="ev-cards">%s%s</ul>' % (shown, hidden)
 
-up = [("Event title %d" % i, "Date, time and a short description. Placeholder.") for i in range(1, 6)]
-past = [("2025 events", "Archive of past events."), ("2024 events", "Archive of past events."), ("2023 events", "Archive of past events."), ("2022 events", "Archive of past events.")]
+up = [("Event title %d" % i, "Date and a short description.") for i in range(1, 6)]
+past = [("2025", "Archive of past events."), ("2024", "Archive of past events."), ("2023", "Archive of past events."), ("2022", "Archive of past events.")]
 PAGES["events"] = ("Events", "Upcoming events first. Past events live in the archive.",
     head("Events", "Events", "Upcoming events first. Past events are in the archive.")
-    + section("Upcoming", ev_list(up, "up") + '<p><button class="btn btn--outline" type="button" data-more="up" aria-expanded="false">View more</button></p>', "section--tint")
-    + section("Past events", '<ul class="cards cards--wide">%s</ul><p><button class="btn btn--outline" type="button" data-more="past" aria-expanded="false">View archive</button></p>' % "".join(
-        static_card(t, d) if i < 2 else static_card(t, d).replace('<li class="card', '<li hidden data-more-item="past" class="card', 1) for i, (t, d) in enumerate(past))))
+    + section("Upcoming", ev_list(up, "up") + '<p class="center"><button class="btn btn--outline" type="button" data-more="up" aria-expanded="false">View more</button></p>')
+    + section("Past events", '<ul class="past-cards">%s</ul><p class="center"><button class="btn btn--outline" type="button" data-more="past" aria-expanded="false">View archive</button></p>' % "".join(
+        static_card(t, d) if i < 3 else static_card(t, d).replace('<li class="card', '<li hidden data-more-item="past" class="card', 1) for i, (t, d) in enumerate(past))))
 
 # EVENT SPOTLIGHT
 PAGES["event"] = ("Event spotlight", "Details for a High Road Gallery event: date, place and how to add it to your calendar.",
@@ -230,8 +230,8 @@ PAGES["event"] = ("Event spotlight", "Details for a High Road Gallery event: dat
     + section("About this event", "<p>Placeholder copy. Describe the event, the artists and what to expect.</p>"
         '<p class="btn-row"><button class="btn btn--primary" type="button" data-ics>Add to calendar</button> '
         '<a class="btn btn--secondary" href="visit.html">Get directions</a></p>')
-    + section("More events", ev_list([("Event title 2", "Date, time and a short description. Placeholder."), ("Event title 3", "Date, time and a short description. Placeholder.")], "x")
-        + '<p><a class="btn btn--outline" href="events.html">View all events</a></p>', "section--tint"))
+    + section("More events", ev_list([("Event title 2", "Date and a short description."), ("Event title 3", "Date and a short description.")], "x")
+        + '<p class="center"><a class="btn btn--outline" href="events.html">View all events</a></p>', "section--tint"))
 
 # GALLERY
 gal_steps = '<ol class="steps"><li><strong>Review the requirements.</strong> What we show and how it works.</li><li><strong>Submit the application.</strong> Use the form below.</li><li><strong>We reply by email.</strong> Timeline to be confirmed.</li></ol>'
